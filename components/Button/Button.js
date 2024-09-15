@@ -14,7 +14,7 @@ const Button = props => {
   );
 };
 
-Button.default = {
+Button.defaultProps = {
   isDisabled: false,
   onPress: () => {},
 };
