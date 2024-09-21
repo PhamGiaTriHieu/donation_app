@@ -26,7 +26,7 @@ const Search = props => {
       <TextInput
         ref={textInputRef}
         style={style.searchInput}
-        placeholder="search"
+        placeholder={props.placeholder}
         onChangeText={value => handleSearch(value)}
         value={search}
       />
@@ -35,9 +35,11 @@ const Search = props => {
 };
 Search.defaultProps = {
   onSearch: () => {},
+  placeholder: 'search',
 };
 Search.propTypes = {
   onSearch: PropTypes.func,
+  placeholder: PropTypes.string,
 };
 
 export default Search;
