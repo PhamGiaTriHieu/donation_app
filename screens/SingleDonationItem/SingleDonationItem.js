@@ -13,10 +13,7 @@ const SingleDonationItem = ({navigation, route}) => {
     state => state.donations.selectedDonationInformation,
   );
   const categoryInformation = route.params.categoryInformation;
-  console.log(
-    '🚀 ~ SingleDonationItem ~ categoryInformation:',
-    categoryInformation,
-  );
+
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
       <ScrollView showsVerticalScrollIndicator={false} style={style.container}>

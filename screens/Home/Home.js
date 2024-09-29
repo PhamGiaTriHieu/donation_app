@@ -11,7 +11,7 @@ import {
 import {globalStyle} from '../../assets/styles/globalStyle';
 import Header from '../../components/Header/Header';
 import {useDispatch, useSelector} from 'react-redux';
-import {updateFirstName} from '../../redux/reducers/User';
+import {resetToInitialState, updateFirstName} from '../../redux/reducers/User';
 import {style} from './style';
 import Search from '../../components/Search/Search';
 import Tab from '../../components/Tab/Tab';
@@ -22,17 +22,16 @@ import {
 } from '../../redux/reducers/Donations';
 import SingleDonationItem from '../../components/SingleDonationItem/SingleDonationItem';
 import {Routes} from '../../navigation/Routes';
+import {logOut} from '../../api/user';
 
 const Home = ({navigation}) => {
   const user = useSelector(state => state.user);
   const categories = useSelector(state => state.categories);
-
   const donations = useSelector(state => state.donations);
 
   const dispatch = useDispatch();
 
   const [donationItems, setDonationItems] = useState([]);
-
   const [categoryPage, setCategoryPage] = useState(1);
   const [categoryList, setCategoryList] = useState([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(false);
@@ -76,14 +75,24 @@ const Home = ({navigation}) => {
           <View>
             <Text style={style.headerIntroText}>Hello,</Text>
             <View style={style.username}>
-              <Header title={`${user?.firstName} ${user?.lastName}.👋`} />
+              {/* <Header title={`${user?.firstName} ${user?.lastName}.👋`} /> */}
+              <Header title={`${user?.displayName} 👋`} />
             </View>
           </View>
-          <Image
-            source={{uri: user?.profileImage}}
-            style={style.profileImage}
-            resizeMode="contain"
-          />
+          <View>
+            <Image
+              source={{uri: user?.profileImage}}
+              style={style.profileImage}
+              resizeMode="contain"
+            />
+            <Pressable
+              onPress={async () => {
+                dispatch(resetToInitialState());
+                await logOut();
+              }}>
+              <Header title="Logout" color="#156CF7" types={3} />
+            </Pressable>
+          </View>
         </View>
         {/* Search */}
         <View style={style.searchBox}>
